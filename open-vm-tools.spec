@@ -8,7 +8,7 @@
 
 Summary:		Open Virtual Machine Tools
 Name:		open-vm-tools
-Version:		12.5.2
+Version:		13.0.0
 Release:		1
 License:		LGPLv2.1+
 Group:		Emulators
