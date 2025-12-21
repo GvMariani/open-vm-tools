@@ -28,6 +28,11 @@ Source100:	%{name}.rpmlintrc
 Patch0:		open-vm-tools-12.5.0-fix-vmuser-desktop-file.patch
 # Errors from TimeInfoDataArray_* functions
 Patch1:		open-vm-tools-12.5.0-workaround-unused-fuctions-errors.patch
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:		doxygen
 BuildRequires:		protobuf-compiler
 BuildRequires:		dnet-devel
