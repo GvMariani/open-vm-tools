@@ -8,7 +8,7 @@
 
 Summary:		Open Virtual Machine Tools
 Name:		open-vm-tools
-Version:		13.0.0
+Version:		13.0.10
 Release:		1
 License:		LGPLv2.1+
 Group:		Emulators
@@ -28,10 +28,15 @@ Source100:	%{name}.rpmlintrc
 Patch0:		open-vm-tools-12.5.0-fix-vmuser-desktop-file.patch
 # Errors from TimeInfoDataArray_* functions
 Patch1:		open-vm-tools-12.5.0-workaround-unused-fuctions-errors.patch
+BuildRequires:		autoconf
+BuildRequires:		automake
 BuildRequires:		doxygen
+BuildRequires:		libtool-base
+BuildRequires:		make
 BuildRequires:		protobuf-compiler
+BuildRequires:		slibtool
 BuildRequires:		dnet-devel
-#BuildRequires:		golang-github-gogo-protobuf-devel
+#BuildRequires:	golang-github-gogo-protobuf-devel
 BuildRequires:		libtool-devel
 BuildRequires:		pam-devel
 BuildRequires:		pkgconfig(fuse3) >= 3.10.0
@@ -64,7 +69,7 @@ BuildRequires:		pkgconfig(xrandr)
 BuildRequires:		pkgconfig(xrender)
 BuildRequires:		pkgconfig(xtst)
 #Requires:	systemd-units
-Requires(post,preun,postun):		systemd
+Requires(post,preun,postun):	systemd
 
 %description
 Open Virtual Machine Tools (aka %{name}) are the open source
@@ -273,7 +278,10 @@ essential for improved user experience of VMware virtual machines.
 %autosetup -n %{name}-stable-%{version}/%{name} -p2
 
 %build
+# Our slibtool package does not provide a sltdl shared library
+# and the sources by default requires it: tell configure to avoid doing this
 %configure \
+	slibtool_prefer_sltdl=no \
 	--disable-static \
 	--without-kernel-modules \
 	--without-root-privileges \
@@ -285,8 +293,6 @@ essential for improved user experience of VMware virtual machines.
 	--with-fuse=3 \
 	--with-gtk3 \
 	--without-gtk2
-
-sed -i -e 's! -shared ! -Wl,--as-needed\0!g' libtool
 
 %make_build
 
