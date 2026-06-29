@@ -8,8 +8,8 @@
 
 Summary:		Open Virtual Machine Tools
 Name:		open-vm-tools
-Version:		13.0.10
-Release:		2
+Version:		13.1.0
+Release:		1
 License:		LGPLv2.1+
 Group:		Emulators
 Url:		https://github.com/vmware/open-vm-tools
@@ -291,8 +291,7 @@ essential for improved user experience of VMware virtual machines.
 	--with-udev-rules-dir=%{_udevrulesdir} \
 	--with-dnet \
 	--with-fuse=3 \
-	--with-gtk3 \
-	--without-gtk2
+	--with-gtk3
 
 %make_build
 
