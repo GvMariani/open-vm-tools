@@ -1,0 +1,13 @@
+diff -rupN open-vm-tools-stable-13.1.0.old/open-vm-tools/lib/rpcChannel/glib_stubs.c open-vm-tools-stable-13.1.0/open-vm-tools/lib/rpcChannel/glib_stubs.c
+--- open-vm-tools-stable-13.1.0.old/open-vm-tools/lib/rpcChannel/glib_stubs.c	2026-05-14 06:59:48.000000000 +0200
++++ open-vm-tools-stable-13.1.0/open-vm-tools/lib/rpcChannel/glib_stubs.c	2026-07-13 16:50:20.653174457 +0200
+@@ -35,6 +35,9 @@
+ 
+ void *g_malloc0(size_t s) { return Util_SafeCalloc(1, s); }
+ void *g_malloc0_n(size_t n, size_t s) { return Util_SafeCalloc(n, s); }
++/* GLib defines g_free as a macro, so undefine it before providing
++ * our own stub implementation. */
++#undef g_free
+ void g_free(void *p) { free(p); }
+ 
+ void g_mutex_init(GMutex *mutex) { }
