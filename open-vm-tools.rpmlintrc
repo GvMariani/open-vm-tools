@@ -1,6 +1,3 @@
-# LGPLv.2.1 is a valid license
-addFilter("W: invalid-license")
-
 # False positive: the main package has plugin files in %%_libdir
 #addFilter("E: lib-package-without-%mklibname")
 
@@ -11,7 +8,7 @@ addFilter("W: non-conffile-in-etc")
 addFilter("E: files-duplicated-waste")
 addFilter("W: files-duplicate ")
 
-# Perhaps dynamically generated
+# Perhaps dynamically generated?
 addFilter("E: zero-length")
 
 # Boatload of errros, but who cares about them?

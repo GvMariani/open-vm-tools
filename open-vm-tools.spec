@@ -10,7 +10,7 @@ Summary:		Open Virtual Machine Tools
 Name:		open-vm-tools
 Version:		13.1.0
 Release:		1
-License:		LGPLv2.1+
+License:		LGPLv2+
 Group:		Emulators
 Url:		https://github.com/vmware/open-vm-tools
 Source0:	https://github.com/vmware/open-vm-tools/archive/refs/tags/stable-%{version}.tar.gz?/%{name}-stable-%{version}.tar.gz
@@ -28,6 +28,8 @@ Source100:	%{name}.rpmlintrc
 Patch0:		open-vm-tools-12.5.0-fix-vmuser-desktop-file.patch
 # Errors from TimeInfoDataArray_* functions
 Patch1:		open-vm-tools-12.5.0-workaround-unused-fuctions-errors.patch
+Patch2:		open-vm-tools-13.1.0-fix-missing-const-qualifier.patch
+Patch3:		open-vm-tools-13.1.0-avoid-Glib-gfree-redefinition-error.patch
 BuildRequires:		autoconf
 BuildRequires:		automake
 BuildRequires:		doxygen
@@ -126,7 +128,7 @@ provide several useful functions like:
 
 
 %post
-# Enable all services
+# Enable all services since otherwise the tools won't work
 %systemd_post vgauthd.service
 %systemd_post vmtoolsd.service
 %systemd_post app-vmware-user.service
@@ -279,7 +281,7 @@ essential for improved user experience of VMware virtual machines.
 
 %build
 # Our slibtool package does not provide a sltdl shared library
-# and the sources by default requires it: tell configure to avoid doing this
+# and the sources by default require it: tell configure to avoid doing this
 %configure \
 	slibtool_prefer_sltdl=no \
 	--disable-static \
